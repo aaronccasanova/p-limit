@@ -27,6 +27,15 @@ export type LimitFunction = {
 		fn: (...arguments_: Arguments) => PromiseLike<ReturnType> | ReturnType,
 		...arguments_: Arguments
 	): Promise<ReturnType>;
+
+	/**
+	Creates a new function that, when called, applies the limit to the provided function.
+	@param fn - The promise-returning/async function to be limited.
+	@returns A new function that applies the limit to `fn`.
+	*/
+	with<Arguments extends unknown[], ReturnType>(
+		fn: (...arguments_: Arguments) => PromiseLike<ReturnType> | ReturnType
+	): (...arguments_: Arguments) => Promise<ReturnType>;
 };
 
 /**

@@ -177,3 +177,25 @@ test('throws on invalid concurrency argument', t => {
 		pLimit(true);
 	});
 });
+
+test('limit.with', async t => {
+	const limit = pLimit(1);
+
+	const inputs = [
+		{value: 10, ms: 300},
+		{value: 20, ms: 200},
+		{value: 30, ms: 100},
+	];
+
+	const outputs = [];
+
+	await Promise.all(
+		inputs.map(limit.with(async input => {
+			await delay(input.ms);
+
+			outputs.push(input.value);
+		})),
+	);
+
+	t.deepEqual(outputs, [10, 20, 30]);
+});

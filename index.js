@@ -67,5 +67,7 @@ export default function pLimit(concurrency) {
 		},
 	});
 
+	generator.with = fn => (...args) => generator(() => fn(...args));
+
 	return generator;
 }

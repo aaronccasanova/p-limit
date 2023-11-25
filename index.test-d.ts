@@ -18,3 +18,9 @@ expectType<number>(limit.activeCount);
 expectType<number>(limit.pendingCount);
 
 expectType<void>(limit.clearQueue());
+
+expectType<Promise<string>>(limit.with((input: number) => String(input))(1));
+
+expectType<Promise<string[]>>(
+	Promise.all([1, 2, 3].map(limit.with((input: number) => String(input)))),
+);
